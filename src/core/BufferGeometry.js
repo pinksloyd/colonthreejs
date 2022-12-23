@@ -639,8 +639,8 @@ class BufferGeometry extends EventDispatcher {
 		const index = this.index;
 		const positionAttribute = this.getAttribute( 'position' );
 
-		if ( positionAttribute !== undefined ) {
-
+		if ( positionAttribute !== undefined ) 
+		{
 			let normalAttribute = this.getAttribute( 'normal' );
 
 			if ( normalAttribute === undefined ) {
@@ -648,14 +648,14 @@ class BufferGeometry extends EventDispatcher {
 				normalAttribute = new BufferAttribute( new Float32Array( positionAttribute.count * 3 ), 3 );
 				this.setAttribute( 'normal', normalAttribute );
 
-			} else {
-
+			} 
+			else 
+			{
 				// reset existing normals to zero
-
-				for ( let i = 0, il = normalAttribute.count; i < il; i ++ ) {
-
+				
+				for ( let i = 0, il = normalAttribute.count; i < il; i ++ ) 
+				{
 					normalAttribute.setXYZ( i, 0, 0, 0 );
-
 				}
 
 			}
@@ -666,13 +666,16 @@ class BufferGeometry extends EventDispatcher {
 
 			// indexed elements
 
-			if ( index ) {
-
-				for ( let i = 0, il = index.count; i < il; i += 3 ) {
-
-					const vA = index.getX( i + 0 );
-					const vB = index.getX( i + 1 );
-					const vC = index.getX( i + 2 );
+			// needs a (previous + current) * 0.5f calculation here but wonder if the Vector3() here allows it...
+			if ( index ) 
+			{
+				const vA = 0, vB = 0, vC = 0;
+				
+				for ( let i = 0, il = index.count; i < il; i += 3 ) 
+				{
+					vA = index.getX( i + 0 );
+					vB = index.getX( i + 1 );
+					vC = index.getX( i + 2 );
 
 					pA.fromBufferAttribute( positionAttribute, vA );
 					pB.fromBufferAttribute( positionAttribute, vB );
@@ -693,15 +696,15 @@ class BufferGeometry extends EventDispatcher {
 					normalAttribute.setXYZ( vA, nA.x, nA.y, nA.z );
 					normalAttribute.setXYZ( vB, nB.x, nB.y, nB.z );
 					normalAttribute.setXYZ( vC, nC.x, nC.y, nC.z );
-
 				}
 
-			} else {
-
+			} 
+			else 
+			{
 				// non-indexed elements (unconnected triangle soup)
-
-				for ( let i = 0, il = positionAttribute.count; i < il; i += 3 ) {
-
+				
+				for ( let i = 0, il = positionAttribute.count; i < il; i += 3 ) 
+				{
 					pA.fromBufferAttribute( positionAttribute, i + 0 );
 					pB.fromBufferAttribute( positionAttribute, i + 1 );
 					pC.fromBufferAttribute( positionAttribute, i + 2 );
@@ -713,7 +716,6 @@ class BufferGeometry extends EventDispatcher {
 					normalAttribute.setXYZ( i + 0, cb.x, cb.y, cb.z );
 					normalAttribute.setXYZ( i + 1, cb.x, cb.y, cb.z );
 					normalAttribute.setXYZ( i + 2, cb.x, cb.y, cb.z );
-
 				}
 
 			}
@@ -721,15 +723,14 @@ class BufferGeometry extends EventDispatcher {
 			this.normalizeNormals();
 
 			normalAttribute.needsUpdate = true;
-
 		}
 
 	}
 
 	// @deprecated since r144
 
-	merge() {
-
+	merge() 
+	{
 		console.error( 'THREE.BufferGeometry.merge() has been removed. Use THREE.BufferGeometryUtils.mergeBufferGeometries() instead.' );
 		return this;
 
